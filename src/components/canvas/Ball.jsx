@@ -10,8 +10,9 @@ import {
 
 import CanvasLoader from "../Loader";
 
-const Ball = (props) => {
-  const [decal] = useTexture([props.imgUrl]);
+// Exported separately so Tech.jsx can use it inside a shared Canvas
+export const BallMesh = ({ imgUrl }) => {
+  const [decal] = useTexture([imgUrl]);
 
   return (
     <Float speed={1.75} rotationIntensity={1} floatIntensity={2}>
@@ -37,6 +38,7 @@ const Ball = (props) => {
   );
 };
 
+// Used on desktop — one canvas per ball
 const BallCanvas = ({ icon }) => {
   return (
     <Canvas
@@ -51,7 +53,7 @@ const BallCanvas = ({ icon }) => {
     >
       <Suspense fallback={<CanvasLoader />}>
         <OrbitControls enableZoom={false} />
-        <Ball imgUrl={icon} />
+        <BallMesh imgUrl={icon} />
       </Suspense>
 
       <Preload all />
